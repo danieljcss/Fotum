@@ -1,20 +1,24 @@
-import { ReactNode } from 'react';
+import { useEffect, useState } from 'react'
+import { useMoralis } from 'react-moralis'
 import {
     Box,
+    Button,
     Container,
     Flex,
     HStack,
-    Link,
     IconButton,
-    Button,
+    Link,
+    Stack,
+    Text,
+    Menu, MenuButton, MenuList, MenuItem, MenuDivider,
     useDisclosure,
     useColorMode,
     useColorModeValue,
-    Stack,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons'
 import NextLink from 'next/link'
 import Logo from './logo'
+import { RiExternalLinkLine, RiLogoutBoxLine } from 'react-icons/ri';
 
 const Links = ['Deposit', 'Vote', 'Dashboard']
 
@@ -33,6 +37,35 @@ const NavLink = ({ children }) => (
 );
 
 export default function Navbar() {
+    const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis()
+    useEffect(() => {
+        if (isAuthenticated) {
+            //setUserAddress()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAuthenticated]);
+
+    // async function setUserAddress() {
+    //     userAddress = await user.get('ethAddress')
+    // }
+
+    const login = async () => {
+        if (!isAuthenticated) {
+            await authenticate({ signingMessage: "Log in using Moralis" })
+                .then(function (user) {
+                    console.log("logged in user:", user);
+                    console.log(user.get("ethAddress"));
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    }
+    const logOut = async () => {
+        await logout();
+        console.log("logged out");
+    }
+
     const { colorMode, toggleColorMode } = useColorMode()
     const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -58,7 +91,7 @@ export default function Navbar() {
                     <Flex alignItems={'center'}>
                         <HStack
                             as={'nav'}
-                            spacing={4}
+                            spacing={10}
                             mr={4}
                             display={{ base: 'none', md: 'flex' }}>
                             {Links.map((link) => (
@@ -67,13 +100,56 @@ export default function Navbar() {
                                 </NextLink>
                             ))}
                         </HStack>
-                        <Button
-                            variant={'solid'}
-                            colorScheme={'cyan'}
-                            size={'md'}
-                            mr={4}>
-                            Connect Wallet
-                        </Button>
+
+                    </Flex>
+
+                    <Flex alignItems={'center'}>
+                        {!isAuthenticated ? (
+                            <Button
+                                onClick={login}
+                                variant={'solid'}
+                                colorScheme={'cyan'}
+                                size={'md'}
+                                mr={4}>
+                                Connect Wallet
+                            </Button>
+                        ) : (
+                            <Menu>
+                                <MenuButton
+                                    as={Button}
+                                    variant={'solid'}
+                                    colorScheme={'cyan'}
+                                    cursor={'pointer'}
+                                    size={'md'}
+                                    mr={4}
+                                    minW={0}>
+                                    {`${user.get('ethAddress').slice(0, 5)}...${user.get('ethAddress').slice(-4)}`}
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem onClick={logOut}>
+                                        <HStack>
+                                            <RiLogoutBoxLine mr={3} />
+                                            <Text>Logout</Text>
+                                        </HStack>
+                                    </MenuItem>
+
+                                    <MenuDivider />
+                                    <MenuItem>
+                                        <HStack>
+                                            <RiExternalLinkLine mr={3} />
+                                            <a href={`https://rinkeby.etherscan.io/address/${user.get('ethAddress')}`}
+                                                target="_blank" rel="noopener noreferrer"
+                                            >
+                                                See on Etherscan
+                                            </a>
+                                        </HStack>
+                                    </MenuItem>
+
+                                </MenuList>
+                            </Menu>
+                        )}
+
+
                         <Button onClick={toggleColorMode}>
                             {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                         </Button>
@@ -92,6 +168,6 @@ export default function Navbar() {
                     </Box>
                 ) : null}
             </Container>
-        </Box>
+        </Box >
     )
 }

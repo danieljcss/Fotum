@@ -12,7 +12,6 @@ import {
     useColorModeValue,
     useColorMode,
 } from '@chakra-ui/react'
-import { ReactNode } from 'react'
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
 import { BiMailSend } from 'react-icons/bi'
 import Logo from './logo'
@@ -68,7 +67,7 @@ export default function Footer() {
                             <Logo colorMode={colorMode} size={30} />
                         </Box>
                         <Text fontSize={'sm'}>
-                            The first DApp that let you invest your DeFi yield in your children's future and charities with automatic repaying insurance.
+                            The first DApp that let you invest your DeFi yield in your children&apos;s future and charities with automatic repaying insurance.
                         </Text>
                         <Stack direction={'row'} spacing={6}>
                             <SocialButton label={'Twitter'} href={'https://www.twitter.com/fotum.defi/'}>
@@ -87,16 +86,13 @@ export default function Footer() {
                         <Link href={'#'}>About us</Link>
                         <Link href={'#'}>Blog</Link>
                         <Link href={'#'}>Contact us</Link>
-                        <Link href={'#'}>Pricing</Link>
-                        <Link href={'#'}>Testimonials</Link>
                     </Stack>
                     <Stack align={'flex-start'}>
                         <ListHeader>Support</ListHeader>
                         <Link href={'#'}>Help Center</Link>
                         <Link href={'#'}>Terms of Service</Link>
                         <Link href={'#'}>Legal</Link>
-                        <Link href={'#'}>Privacy Policy</Link>
-                        <Link href={'#'}>Satus</Link>
+
                     </Stack>
                     <Stack align={'flex-start'}>
                         <ListHeader>Stay up to date</ListHeader>
@@ -110,10 +106,10 @@ export default function Footer() {
                                 }}
                             />
                             <IconButton
-                                bg={useColorModeValue('green.400', 'green.800')}
+                                bg={useColorModeValue('cyan.400', 'cyan.800')}
                                 color={useColorModeValue('white', 'gray.800')}
                                 _hover={{
-                                    bg: 'green.600',
+                                    bg: 'cyan.600',
                                 }}
                                 aria-label="Subscribe"
                                 icon={<BiMailSend />}

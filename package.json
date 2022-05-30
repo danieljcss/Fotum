@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chainlink/contracts": "^0.4.1",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11.9.0",
@@ -16,6 +17,8 @@
     "@openzeppelin/contracts": "^4.6.0",
     "@walletconnect/web3-provider": "^1.7.8",
     "@web3auth/web3auth": "^0.9.3",
+    "bignumber.js": "^9.0.2",
+    "formik": "^2.2.9",
     "framer-motion": "^6.3.3",
     "magic-sdk": "^8.1.1",
     "moralis": "^1.5.11",
@@ -33,6 +36,8 @@
     "eslint-config-next": "12.1.5",
     "ethereum-waffle": "^3.0.0",
     "ethers": "^5.0.0",
-    "hardhat": "^2.9.3"
+    "hardhat": "^2.9.3",
+    "hardhat-deploy": "^0.11.10",
+    "hardhat-deploy-ethers": "^0.3.0-beta.13"
   }
 }

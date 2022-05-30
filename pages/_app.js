@@ -7,6 +7,7 @@ import { MoralisProvider } from 'react-moralis'
 function MyApp({ Component, pageProps }) {
   return (
     <ChakraProvider theme={theme}>
+      {/* initializeOnMount={false} */}
       <MoralisProvider appId={process.env.NEXT_PUBLIC_APPID} serverUrl={process.env.NEXT_PUBLIC_SERVER_URL}>
         <Layout>
           <Component {...pageProps} />

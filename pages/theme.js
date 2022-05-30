@@ -19,12 +19,25 @@ const colors = {
         900: "#062A2D"
     }
 }
+const shadows = {
+    light: '0 0 0 3px rgba(255, 255, 255, 0.6)',
+}
 
 const config = {
     initialColorMode: 'dark',
     useSystemColorMode: true,
 }
 
-const theme = extendTheme({ colors, config })
+const components = {
+    Link: {
+        baseStyle: {
+            _hover: {
+                textDecoration: 'none',
+            },
+        },
+    },
+}
+
+const theme = extendTheme({ colors, shadows, config, components })
 
 export default theme
